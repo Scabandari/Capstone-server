@@ -22,6 +22,25 @@ module.exports = app => {
     });
   });
 
+  app.put('/contact', (req, res) => {
+    //let id = req.params.id;
+    let id = req.param('contactId');
+    Contact.findById(id, (err, con) => {
+      if (err) {
+        res.send(err);
+      }
+      con.first_name = req.body.first_name;
+      con.last_name = req.body.last_name;
+      con.phone = req.body.phone;
+      con.email = req.body.email;
+      con.save().then(contact => {
+        res.send("Contact updated!");
+      }).catch(err => {
+        console.log("Error while trying to update contact:\n" + err);
+        res.send(err);
+      });
+    });
+  });
 
   app.post('/contact', (req, res) => {
     console.log('request body', req.body);
