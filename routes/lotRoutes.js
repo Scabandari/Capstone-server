@@ -1,3 +1,4 @@
+"use strict";
 const Lot = require('../models/lot');
 //require('../models/contact');
 const mongoose = require('mongoose');

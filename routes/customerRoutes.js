@@ -1,3 +1,4 @@
+"use strict";
 //const Contact = require('../models/contact');
 const Customer = require('../models/customer');
 const mongoose = require('mongoose');
