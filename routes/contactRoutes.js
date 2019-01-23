@@ -24,17 +24,20 @@ module.exports = app => {
   });
 
   app.put('/contact', (req, res) => {
-    //let id = req.params.id;
     let id = req.param('contactId');
     Contact.findById(id, (err, con) => {
       if (err) {
         res.send(err);
       }
-      con.first_name = req.body.first_name;
-      con.last_name = req.body.last_name;
-      con.phone = req.body.phone;
-      con.email = req.body.email;
-      con.save().then(contact => {
+      if(req.body.first_name)
+        con.first_name = req.body.first_name;
+      if(req.body.last_name)
+        con.last_name = req.body.last_name;
+      if(req.body.phone)
+        con.phone = req.body.phone;
+      if(req.body.email)
+        con.email = req.body.email;
+      con.save().then(updated_contact => {
         res.send("Contact updated!");
       }).catch(err => {
         console.log("Error while trying to update contact:\n" + err);
@@ -50,7 +53,7 @@ module.exports = app => {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       phone: req.body.phone,
-      email: req.body.first_name
+      email: req.body.email
     });
     contact.save().then(contact => {
       res.send("Success!");

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 
 const Spot = new Schema({
@@ -15,9 +14,10 @@ const Spot = new Schema({
   longitude: {
     type: Number
   },
+  available: Boolean,
   parking_lot: {
     type: Schema.Types.ObjectId,
-    ref: 'lots'
+    ref: 'Lot'
   }
 });
 
