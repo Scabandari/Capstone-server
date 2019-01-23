@@ -21,7 +21,7 @@ const Customer = new Schema({
   },
   contact: {  // can now access like customer.contact.first_name ...
     type: Schema.Types.ObjectId,
-    ref: 'contacts'
+    ref: 'Contact'
   }
 });
 
