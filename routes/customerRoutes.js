@@ -1,9 +1,31 @@
 "use strict";
 //const Contact = require('../models/contact');
 const Customer = require('../models/customer');
-const mongoose = require('mongoose');
+require('mongoose');
 
 module.exports = app => {
+
+  app.get('/login', async (req, res) => {
+    let username = req.param('user_name');
+    let password = req.param('pwrd');
+
+    // console.log(`\req.params.: ${req.params}`);
+    // console.log(`\nuname: ${username} pwrd: ${password}`);
+    try {
+      const customer = await Customer.findOne({user_name: username});
+      //console.log(`custs: ${customer}`);
+      if (!customer) {
+        res.send("Username not found");
+      } else if (customer.password != password) {
+        res.send("Incorrect password");
+      } else {
+        res.send(customer);
+      }
+    } catch (err) {
+      res.send(err);
+    }
+  });
+
   app.get('/customers', function(req, res) {
     //res.json({ message: 'hooray! welcome to our contactRoutes.js api!' });
     Customer.find((err, contacts) => {
@@ -53,6 +75,7 @@ module.exports = app => {
     new Customer({
       // first_name: req.body.params.first_name
       user_name: req.body.user_name,
+      password: req.body.password,
       contact: req.body.contact
     }).save().then(customer => {
       res.send("Success!");
