@@ -1,7 +1,8 @@
 "use strict";
 const Lot = require('../models/lot');
-//require('../models/contact');
-const mongoose = require('mongoose');
+require('mongoose');
+//const utils = require('../functions/utils');
+
 
 
 module.exports = app => {
@@ -12,6 +13,7 @@ module.exports = app => {
       if (err) {
         res.send(err);
       }
+      //utils.clostestParking("user id");
       res.json(lots);
     });
   });

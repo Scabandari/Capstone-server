@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "body-parser": "~1.0.1",
-    "express": "~4.0.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "gps": "^0.4.9",
     "mongoose": "^5.1.1"
   },

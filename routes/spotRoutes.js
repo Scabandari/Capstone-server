@@ -1,7 +1,7 @@
 "use strict";
 const Spot = require('../models/spot');
 //require('../models/contact');
-const mongoose = require('mongoose');
+require('mongoose');
 
 
 module.exports = app => {

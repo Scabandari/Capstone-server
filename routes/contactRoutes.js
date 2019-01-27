@@ -1,6 +1,6 @@
 "use strict";
 const Contact = require('../models/contact');
-const mongoose = require('mongoose');
+require('mongoose');
 
 module.exports = app => {
   app.get('/contacts', function(req, res) {
