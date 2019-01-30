@@ -21,13 +21,13 @@ module.exports = app => {
       const cheapest_distance = GPS.Distance(lat, long, cheapest.latitude, cheapest.longitude);
       const best = closest;  // TODO CHANGE THIS
         // cheapest.available = false;
-      cheapest.available = false;
+      //cheapest.available = false;  TODO uncomment this
       await cheapest.save();
       //console.log(`cheapest: ${cheapest._id}`);
-      closest.available = false;
+      //closest.available = false;
       await closest.save;
       //console.log(`closest: ${closest._id}`);
-      best.available = false;
+      //best.available = false;
       await best.save;
 
       const selection = new Selection({
