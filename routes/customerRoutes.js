@@ -72,6 +72,7 @@ module.exports = app => {
   app.post('/customer', (req, res) => {
     console.log('request body', req.body);
     //res.send('Works!');
+    //req.body = JSON.stringify(req.body);
     new Customer({
       // first_name: req.body.params.first_name
       user_name: req.body.user_name,

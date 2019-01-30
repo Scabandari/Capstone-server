@@ -27,6 +27,7 @@ require('./routes/customerRoutes')(app);
 require('./routes/lotRoutes')(app);
 require('./routes/spotRoutes')(app);
 require('./routes/selectionRoutes')(app);
+require('./routes/reservationRoutes')(app);
 
 // app.get('/', function(req, res) {
 //     res.json({ message: 'hooray! welcome to our api!' });

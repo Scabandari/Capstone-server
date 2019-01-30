@@ -3,8 +3,6 @@ const Lot = require('../models/lot');
 require('mongoose');
 //const utils = require('../functions/utils');
 
-
-
 module.exports = app => {
   app.get('/lots', (req, res) => {
     //res.json({ message: 'hooray! welcome to our contactRoutes.js api!' });
