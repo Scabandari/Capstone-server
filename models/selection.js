@@ -3,16 +3,25 @@ const Schema = mongoose.Schema;
 
 const Selection = new Schema({
   closest: {
-    type: Schema.Types.ObjectId,
-    ref: 'Spot'
+    spot: {
+      type: Schema.Types.ObjectId,
+      ref: 'Spot'
+    },
+    distance: Number
   },
-  cheapest: {
-    type: Schema.Types.ObjectId,
-    ref: 'Spot'
+  cheapest:{
+    spot: {
+      type: Schema.Types.ObjectId,
+      ref: 'Spot'
+    },
+    distance: Number
   },
   best: {
-    type: Schema.Types.ObjectId,
-    ref: 'Spot'
+    spot: {
+      type: Schema.Types.ObjectId,
+      ref: 'Spot'
+    },
+    distance: Number
   }
 });
 

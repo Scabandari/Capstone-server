@@ -6,44 +6,56 @@ require('mongoose');
 const utils = require('../functions/utils');
 
 module.exports = app => {
-  app.get('/selection', (req, res) => {
-    let lat = req.params.lat;
-    let long = req.params.long;
+  app.post('/selection', async (req, res) => {
+    // const lat = req.param('lat');
+    // const long = req.param('long');
+    const lat = req.body.lat;
+    const long = req.body.long;
+    //console.log(`lat: ${lat}, long: ${long}`);
+    try {
+      const spots = await Spot.find({available: true});
+      //console.log(`spots: ${typeof spots}\n`);
+      const { closest, closest_distance } = utils.closestParking(lat, long, spots);
+      //console.log(`closest: ${closest} closest_distance: ${closest_distance}\n`);
+      const cheapest = utils.cheapestParking(spots);
+      const cheapest_distance = GPS.Distance(lat, long, cheapest.latitude, cheapest.longitude);
+      const best = closest;  // TODO CHANGE THIS
+        // cheapest.available = false;
+      cheapest.available = false;
+      await cheapest.save();
+      //console.log(`cheapest: ${cheapest._id}`);
+      closest.available = false;
+      await closest.save;
+      //console.log(`closest: ${closest._id}`);
+      best.available = false;
+      await best.save;
 
-    Spot.find({available: true}).then(spots => {
-      let closest = spots[0];
-      let old_distance = Infinity;
-      let new_distance = Infinity;
-
-      Object.keys(spots).forEach(key => {
-        let spot = spots[key];
-        new_distance = GPS.Distance(lat, long, spot.latitude, spot.longitude);
-        if(new_distance < old_distance){
-          closest = spot;
-          old_distance = new_distance;
+      const selection = new Selection({
+        closest: {
+          spot: closest,
+          distance: closest_distance
+        },
+        cheapest: {
+          spot: cheapest,
+          distance: cheapest_distance
+        },
+        best: {
+          spot: best,
+          distance: cheapest_distance
         }
-      }); // Object.keys
-      // todo find the cheapest
-      let cheapest = spots[0];
-      let min = Infinity;
-      Object.keys(spots).forEach(key => {
-        if(spots[key].price_minute < min) {
-          cheapest = spots[key];
-          min = spots.price_minute;
-        }
-      }); // Object.keys
-      new Selection({  // TODO response sends parking spot _ids not actual parking spots
-        closest: closest._id,
-        cheapest: cheapest._id,
-        best: cheapest._id
-      }).save().then(selection => {
-        res.send(selection);
-      }).catch(err => {
-        res.send(err);
       });
-      //res.send(closest);
-    }).catch(err => {
-      res.send(err);
-    });
-  }); // app.get
+      selection.save().then(selection => {
+        //console.log(`selection: ${selection}`);
+        res.send(selection);
+      });
+
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  app.get('/selections', async (req, res) => {
+    const selections = await Selection.find();
+    res.send(selections);
+  });
 };
