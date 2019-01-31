@@ -18,7 +18,7 @@ require('./models/spot');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 8080;        // set our port
+const port = process.env.PORT || 8002;        // set our port
 
 //const router = express.Router();
 
@@ -29,9 +29,7 @@ require('./routes/spotRoutes')(app);
 require('./routes/selectionRoutes')(app);
 require('./routes/reservationRoutes')(app);
 
-// app.get('/', function(req, res) {
-//     res.json({ message: 'hooray! welcome to our api!' });
-// });
+
 
 //app.use('/api', router);
 
@@ -39,12 +37,6 @@ require('./routes/reservationRoutes')(app);
 const distance = GPS.Distance(45.5, 75.56, 40.71, 74);  // Montreal to N.Y
 console.log("Montreal to N.Y is: " + distance);
 
-// const caller = (par, (result) => {
-//   console.log(result);
-// });
-
-//let spots = utils.closestParking(42, 42);
-//console.log("\n.\n.\n.\n,index: " + spots);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
