@@ -75,16 +75,22 @@ module.exports = app => {
     //res.send('Works!');
     //req.body = JSON.stringify(req.body);
       const contact = new Contact({
-          first_name: req.param('first_name'),
-          last_name: req.param('last_name'),
-          phone: req.param('phone'),
-          email: req.param('email'),
+          // first_name: req.param('first_name'),
+          // last_name: req.param('last_name'),
+          // phone: req.param('phone'),
+          // email: req.param('email'),
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          phone: req.body.phone,
+          email: req.body.email,
       });
       await contact.save();
     new Customer({
       // first_name: req.body.params.first_name
-      user_name: req.param('user_name'),
-      password: req.param('password'),
+      // user_name: req.param('user_name'),
+      // password: req.param('password'),
+        user_name: req.body.user_name,
+        password: req.body.password,
       contact: contact._id
     }).save().then(customer => {
       res.send("Success!");
