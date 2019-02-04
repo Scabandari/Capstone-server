@@ -1,6 +1,7 @@
 "use strict";
 //const Contact = require('../models/contact');
 const Customer = require('../models/customer');
+const Contact = require('../models/contact');
 require('mongoose');
 
 module.exports = app => {
@@ -56,8 +57,8 @@ module.exports = app => {
         customer.user_name = req.body.user_name;
       if(req.body.password)
         customer.password = req.body.password;
-      if(req.body.latitude)
-        customer.latitude = req.body.latitude;
+      if(req.body.phone)
+        customer.phone = req.body.phone;
       if(req.body.longitude)
         customer.longitude = req.body.longitude;
       customer.save().then(updated_customer => {
@@ -69,15 +70,22 @@ module.exports = app => {
     });
   });
 
-  app.post('/customer', (req, res) => {
+  app.post('/register', async (req, res) => {
     console.log('request body', req.body);
     //res.send('Works!');
     //req.body = JSON.stringify(req.body);
+      const contact = new Contact({
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          phone: req.body.phone,
+          email: req.body.email
+      });
+      await contact.save();
     new Customer({
       // first_name: req.body.params.first_name
       user_name: req.body.user_name,
       password: req.body.password,
-      contact: req.body.contact
+      contact: contact._id
     }).save().then(customer => {
       res.send("Success!");
     }).catch(err => {
