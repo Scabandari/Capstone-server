@@ -18,7 +18,7 @@ require('./models/spot');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 8003;        // set our port
+const port = process.env.PORT || 8004;        // set our port
 
 //const router = express.Router();
 
