@@ -30,7 +30,7 @@ module.exports = app => {
       //best.available = false;
       await best.save;
 
-      const selection = new Selection({
+      const selection = await new Selection({
         closest: {
           spot: closest,
           distance: closest_distance
@@ -44,10 +44,7 @@ module.exports = app => {
           distance: cheapest_distance
         }
       });
-      selection.save().then(selection => {
-        //console.log(`selection: ${selection}`);
-        res.send(selection);
-      });
+      await selection.save();
 
     } catch (err) {
       console.log(err);
@@ -55,7 +52,11 @@ module.exports = app => {
   });
 
   app.get('/selections', async (req, res) => {
-    const selections = await Selection.find();
-    res.send(selections);
+    try {
+        const selections = await Selection.find();
+        res.send(selections);
+    } catch (err) {
+        res.send(err);
+    }
   });
 };
