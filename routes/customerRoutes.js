@@ -47,7 +47,7 @@ module.exports = app => {
 
     app.put('/customer', async (req, res) => {
         const id = req.query.customerId;
-        console.log(`customerId: ${id}`);
+        //console.log(`customerId: ${id}`);
         try {
             const customer = await Customer.findById(id);
             if (req.body.user_name)
@@ -62,6 +62,7 @@ module.exports = app => {
             res.send("Customer updated!");
         } catch (err) {
             console.log("Error while trying to update customer:\n" + err);
+            res.send(err);
         }
     });
 
