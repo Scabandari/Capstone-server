@@ -13,31 +13,32 @@ module.exports = app => {
     const long = req.body.long;
     //console.log(`lat: ${lat}, long: ${long}`);
     try {
-      //const spots = await Spot.find({available: true});
+      const spots = await Spot.find({available: true});
       //console.log(`spots: ${typeof spots}\n`);
-      //const { closest, closest_distance } = utils.closestParking(lat, long, spots);
+      const { closest, closest_distance } = utils.closestParking(lat, long, spots);
       //console.log(`closest: ${closest} closest_distance: ${closest_distance}\n`);
-      //const cheapest = utils.cheapestParking(spots);
-      //const cheapest_distance = GPS.Distance(lat, long, cheapest.latitude, cheapest.longitude);
+      const cheapest = utils.cheapestParking(spots);
+      const cheapest_distance = GPS.Distance(lat, long, cheapest.latitude, cheapest.longitude);
       //const best = closest;  // TODO CHANGE THIS
-        // cheapest.available = false;
-      //cheapest.available = false;  TODO uncomment this
-      //await cheapest.save();
-      //console.log(`cheapest: ${cheapest._id}`);
-      //closest.available = false;
-      //await closest.save;
-      //console.log(`closest: ${closest._id}`);
-      //best.available = false;
-      //await best.save;
+
          try {
              const best = await Spot.findById("5c4b7dba70a1d00ef70e8d8a");
              const best_distance = GPS.Distance(lat, long, best.latitude, best.longitude);
 
-             const cheapest = await Spot.findById("5c4b7e1570a1d00ef70e8d8c");
-             const cheapest_distance = GPS.Distance(lat, long, cheapest.latitude, cheapest.longitude);
+             cheapest.available = false;
+             await cheapest.save();
+             //console.log(`cheapest: ${cheapest._id}`);
+             closest.available = false;
+             await closest.save;
+             //console.log(`closest: ${closest._id}`);
+             best.available = false;
+             await best.save;
 
-             const closest = await Spot.findById("5c4b7de670a1d00ef70e8d8b");
-             const closest_distance = GPS.Distance(lat, long, closest.latitude, closest.longitude);
+             // const cheapest = await Spot.findById("5c4b7e1570a1d00ef70e8d8c");
+             // const cheapest_distance = GPS.Distance(lat, long, cheapest.latitude, cheapest.longitude);
+             //
+             // const closest = await Spot.findById("5c4b7de670a1d00ef70e8d8b");
+             // const closest_distance = GPS.Distance(lat, long, closest.latitude, closest.longitude);
 
              const selection = await new Selection({
                  closest: {
