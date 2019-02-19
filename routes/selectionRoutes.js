@@ -29,10 +29,10 @@ module.exports = app => {
              await cheapest.save();
              //console.log(`cheapest: ${cheapest._id}`);
              closest.available = false;
-             await closest.save;
+             await closest.save();
              //console.log(`closest: ${closest._id}`);
              best.available = false;
-             await best.save;
+             await best.save();
 
              // const cheapest = await Spot.findById("5c4b7e1570a1d00ef70e8d8c");
              // const cheapest_distance = GPS.Distance(lat, long, cheapest.latitude, cheapest.longitude);
