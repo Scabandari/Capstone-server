@@ -49,6 +49,21 @@ module.exports = app => {
     }
   });
 
+    app.get('/spots/reset', async (req, res) => {
+        try {
+            const spots = await Spot.find();
+            Object.keys(spots).forEach(async key => {
+                let spot = spots[key];
+                spot.available = true;
+                await spot.save();
+                return spot;
+            });
+            res.send("Success!");
+        } catch (err) {
+            res.send(err);
+        }
+    });
+
   app.post('/spot', async (req, res) => {
     //console.log('request body', req.body);
     try {
