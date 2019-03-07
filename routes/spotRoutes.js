@@ -65,8 +65,11 @@ module.exports = app => {
     });
 
   app.post('/spot', async (req, res) => {
-    //console.log('request body', req.body);
-    try {
+    console.log('request body', req.body);
+    console.log(`req.body.number: ${req.body.number}`);
+      console.log(`Number(req.body.number): ${Number(req.body.number)}`);
+
+      try {
         const spot = await new Spot({
             number: req.body.number,
             price_minute: req.body.price_minute,

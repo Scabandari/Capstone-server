@@ -15,8 +15,8 @@ module.exports = app => {
 
     app.get('/contact', async (req, res) => {
         //res.json({ message: 'hooray! welcome to our contactRoutes.js api!' });
-        const id = req.query.contactId;
         try {
+            const id = req.query.contactId;
             const contacts = await Contact.findById(id);
             res.send(contacts);
         } catch (err) {
@@ -25,8 +25,8 @@ module.exports = app => {
     });
 
   app.put('/contact', async (req, res) => {
-      let id = req.query.contactId;
       try {
+          let id = req.query.contactId;
           const contact = await Contact.findById(id);
           if(req.body.first_name)
               contact.first_name = req.body.first_name;
@@ -60,8 +60,8 @@ module.exports = app => {
   });
 
   app.delete('/contact', async (req, res) => {
-      const id = req.query.contactId;
       try {
+          const id = req.query.contactId;
           const contact = await Contact.findByIdAndRemove(id);
           res.send("Contact removed successfully");
       } catch (err) {
