@@ -10,6 +10,7 @@ module.exports = app => {
         try {
             const lat = req.body.lat;
             const long = req.body.long;
+            console.log(`User latitutde: ${lat} User longitude: ${long}`);
             const spots = await Spot.find({available: true});
             //console.log(`spots: ${typeof spots}\n`);
             const {closest, closest_distance} = utils.closestParking(lat, long, spots);
