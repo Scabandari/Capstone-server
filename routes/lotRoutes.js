@@ -14,8 +14,8 @@ module.exports = app => {
   });
 
   app.get('/lot', async (req, res) => {
-      let id = req.query.lotId;
       try {
+          let id = req.query.lotId;
           const lot = await Lot.findById(id);
           res.send(lot);
       } catch (err) {
@@ -41,8 +41,8 @@ module.exports = app => {
   });
 
   app.put('/lot', async (req, res) => {
-      const id = req.query.lotId;  // THIS IS REQUIRED BY CLIENTS USING API
       try {
+          const id = req.query.lotId;  // THIS IS REQUIRED BY CLIENTS USING API
           const lot = await Lot.findById(id);
           if (req.body.street)
               lot.street = req.body.street;

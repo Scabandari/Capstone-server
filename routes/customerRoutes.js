@@ -6,24 +6,24 @@ require('mongoose');
 
 module.exports = app => {
 
-  app.get('/login', async (req, res) => {
-    const username = req.query.user_name;
-    const password = req.query.pwrd;
+    app.get('/login', async (req, res) => {
 
-    try {
-      const customer = await Customer.findOne({user_name: username});
-      //console.log(`custs: ${customer}`);
-      if (!customer) {
-        res.send("Username not found");
-      } else if (customer.password != password) {
-        res.send("Incorrect password");
-      } else {
-        res.send(customer);
-      }
-    } catch (err) {
-      res.send(err);
-    }
-  });
+        try {
+            const username = req.query.user_name;
+            const password = req.query.pwrd;
+            const customer = await Customer.findOne({user_name: username});
+            //console.log(`custs: ${customer}`);
+            if (!customer) {
+                res.send("Username not found");
+            } else if (customer.password != password) {
+                res.send("Incorrect password");
+            } else {
+                res.send(customer);
+            }
+        } catch (err) {
+            res.send(err);
+        }
+    });
 
     app.get('/customers', async (req, res) => {
         try {
@@ -34,21 +34,21 @@ module.exports = app => {
         }
     });
 
-  app.get('/customer', async (req, res) => {
-    //let id = req.param('customerId');
-      const id = req.query.customerId;
-      try {
-      const customer = await Customer.findById(id);
-      res.send(customer);
-    } catch (err) {
-      res.send(err);
-    }
-  });
+    app.get('/customer', async (req, res) => {
+        //let id = req.param('customerId');
+        try {
+            const id = req.query.customerId;
+            const customer = await Customer.findById(id);
+            res.send(customer);
+        } catch (err) {
+            res.send(err);
+        }
+    });
 
     app.put('/customer', async (req, res) => {
-        const id = req.query.customerId;
         //console.log(`customerId: ${id}`);
         try {
+            const id = req.query.customerId;
             const customer = await Customer.findById(id);
             if (req.body.user_name)
                 customer.user_name = req.body.user_name;
@@ -91,7 +91,7 @@ module.exports = app => {
             await customer.save();
             res.send(customer);
         } catch (err) {
-          res.send(err);
+            res.send(err);
         }
     });
 };

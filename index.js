@@ -29,8 +29,10 @@ require('./routes/spotRoutes')(app);
 require('./routes/selectionRoutes')(app);
 require('./routes/reservationRoutes')(app);
 
-
-
+// function intervalFunc() {
+//     console.log('Cant stop me now!');
+// }
+// setInterval(intervalFunc, 1500);
 //app.use('/api', router);
 
 // GET THE DISTANCE BETWEEEN 2 GPS COORDINATES

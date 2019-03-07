@@ -5,11 +5,11 @@ const Reservation = require('../models/reservation');
 module.exports = app => {
     app.post('/reservation', async (req, res) => {
         //console.log(`user_id: ${req.body.user_id}`);
-        const reservation = new Reservation({
-            customer: req.body.user_id,
-            spot: req.body.spot_id
-        });
         try {
+            const reservation = new Reservation({
+                customer: req.body.user_id,
+                spot: req.body.spot_id
+            });
             await Reservation.populate(reservation, {path: "spot"});
             await Reservation.populate(reservation, {path: "customer"});
             await reservation.save();
@@ -20,8 +20,15 @@ module.exports = app => {
     });
 
     app.get('/reservations', async function(req, res) {
+        const date = new Date();
+        console.log(`Time: ${date}`);
+        console.log(`Time(min): ${date.getMinutes()}`);
+        console.log(`Time(day): ${date.getDay()}`);
+        console.log(`Time(hour): ${date.getHours()}`);
+
         try {
             const reservations = await Reservation.find({});
+            console.log(`reservations[0] Time: ${reservations[0].start_time}`);
             res.send(reservations);
         } catch (err) {
             res.send(err);
@@ -29,12 +36,16 @@ module.exports = app => {
     });
 
     app.delete('/reservation', async function(req, res) {
-        const id = req.query.reservationId;
-        Reservation.findByIdAndRemove(id, (err, reservation) => {
-            if (err) {
-                return res.send(err);
-            }
-            res.send("Reservation successfully deleted");
-        });
+       try {
+           const id = req.query.reservationId;
+           Reservation.findByIdAndRemove(id, (err, reservation) => {
+               if (err) {
+                   return res.send(err);
+               }
+               res.send("Reservation successfully deleted");
+           });
+       } catch (err) {
+           res.send(err);
+       }
     });
 };
