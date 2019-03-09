@@ -14,7 +14,14 @@ const Spot = new Schema({
   longitude: {
     type: Number
   },
-  available: Boolean,
+  available: {
+      type:Boolean,
+      default: true
+  },  // Means that a spot has not been reserved
+  occupied: {
+      type:Boolean,
+      default: false
+  },
   parking_lot: {
     type: Schema.Types.ObjectId,
     ref: 'Lot'

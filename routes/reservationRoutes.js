@@ -19,6 +19,20 @@ module.exports = app => {
         }
     });
 
+    app.put('/reservation', async (req, res) => {
+        //console.log(`PUT Spot: ${JSON.stringify(req.body)}`);
+        try {
+            const id = req.query.reservationId;
+            const reservation = await Reservation.findById(id);
+            if (req.body.cancelled)
+                reservation.cancelled = req.body.cancelled;
+            await reservation.save();
+            res.send(reservation);
+        } catch (err) {
+            res.send(err);
+        }
+    });
+
     app.get('/reservations', async function(req, res) {
         const date = new Date();
         console.log(`Time: ${date}`);
