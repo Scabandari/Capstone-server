@@ -61,6 +61,7 @@ module.exports = app => {
 
             spots.map(async spot => {
                 spot.available = true;
+                spot.occupied = false;
                 //spot.occupied = false;
                 await spot.save();
             });

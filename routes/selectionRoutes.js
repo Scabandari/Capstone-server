@@ -54,6 +54,14 @@ module.exports = app => {
                 }
             });
             await selection.save();
+            try {
+                console.log(`Selection:\nBest: ${selection.best.spot.price_minute}`);
+                console.log(`Cheapest: ${selection.cheapest.spot.price_minute}`);
+                console.log(`Cheapest: ${selection.closest.spot.price_minute}`);
+            } catch (error) {
+                console.log(`Error in Selection POST ${error}`);
+            }
+
             res.send(selection);
             } catch (err) {
                 res.send(err);
