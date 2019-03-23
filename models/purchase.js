@@ -19,8 +19,16 @@ const Purchase = Schema({
         type: Boolean,
         default: false
     },
+    bill_sent: {
+        type: Boolean,
+        default: false
+    },
+    concluded: {
+        type: Boolean,
+        default: false
+    },
     reservation: {
-        type: Schema.Types.id,
+        type: Schema.Types.ObjectId,
         ref: 'Reservation'
     }
 });
