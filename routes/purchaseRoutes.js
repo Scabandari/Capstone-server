@@ -7,10 +7,9 @@ module.exports = app => {
         //console.log(`user_id: ${req.body.user_id}`);
         try {
             const purchase = new Purchase({
-                customer: req.body.user_id,
-                spot: req.body.spot_id
+                reservation: req.body.res_id,
             });
-            await purchase.populate(purchase, {path: "reservation"});
+            //await purchase.populate(purchase, {path: "reservation"});
             await purchase.save();
             res.send(purchase);
         } catch (err) {
