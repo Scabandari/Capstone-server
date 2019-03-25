@@ -51,12 +51,24 @@ const diff_minutes = (time1, time2) => {
 
 const DEVELOPER_GMAIL = 'developer.rion@gmail.com';
 
+// const transporter = nodemailer.createTransport({
+//    service: 'gmail',
+//    auth: {
+//        user: DEVELOPER_GMAIL,
+//        pass: 'developerpass'
+//    }
+// });
+
 const transporter = nodemailer.createTransport({
-   service: 'gmail',
-   auth: {
-       user: DEVELOPER_GMAIL,
-       pass: 'developerpass'
-   }
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    // port: 465,
+    port: 25,
+    secure: true,
+    auth: {
+        user: DEVELOPER_GMAIL,
+        pass: 'developerpass'
+    },
 });
 
 let mailOptions = {
