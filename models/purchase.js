@@ -10,7 +10,7 @@ const Purchase = Schema({
         type: Number,
         default: 0,
     },
-    price_minute: Number,
+    //price_minute: Number,
     total_cost: {
         type: Number,
         default: 0,

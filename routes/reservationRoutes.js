@@ -34,11 +34,6 @@ module.exports = app => {
     });
 
     app.get('/reservations', async function(req, res) {
-        const date = new Date();
-        console.log(`Time: ${date}`);
-        console.log(`Time(min): ${date.getMinutes()}`);
-        console.log(`Time(day): ${date.getDay()}`);
-        console.log(`Time(hour): ${date.getHours()}`);
 
         try {
             const reservations = await Reservation.find({});
